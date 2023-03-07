@@ -31,19 +31,18 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class TaxpayerData extends JFrame {
+import static com.incometaxcalculator.data.io.LogOptions.BASIC;
+import static com.incometaxcalculator.data.io.LogOptions.ENTERTAINMENT;
+import static com.incometaxcalculator.data.io.LogOptions.HEALTH;
+import static com.incometaxcalculator.data.io.LogOptions.OTHER;
+import static com.incometaxcalculator.data.io.LogOptions.TRAVEL;
 
-  private static final short ENTERTAINMENT = 0;
-  private static final short BASIC = 1;
-  private static final short TRAVEL = 2;
-  private static final short HEALTH = 3;
-  private static final short OTHER = 4;
-  private final JPanel contentPane;
+public class TaxpayerData extends JFrame {
 
   public TaxpayerData(int taxRegistrationNumber, TaxpayerManager taxpayerManager) {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setBounds(200, 100, 450, 420);
-    contentPane = new JPanel();
+    JPanel contentPane = new JPanel();
     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     setContentPane(contentPane);
     contentPane.setLayout(null);
@@ -172,15 +171,19 @@ public class TaxpayerData extends JFrame {
     JButton btnViewReport = new JButton("View Report");
     btnViewReport.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        ChartDisplay.createBarChart(taxpayerManager.getTaxpayerBasicTax(taxRegistrationNumber),
+        ChartDisplay.createBarChart(
+            taxpayerManager.getTaxpayerBasicTax(taxRegistrationNumber),
             taxpayerManager.getTaxpayerVariationTaxOnReceipts(taxRegistrationNumber),
-            taxpayerManager.getTaxpayerTotalTax(taxRegistrationNumber));
+            taxpayerManager.getTaxpayerTotalTax(taxRegistrationNumber)
+        );
         ChartDisplay.createPieChart(
-            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, ENTERTAINMENT),
-            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, BASIC),
-            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, TRAVEL),
-            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, HEALTH),
-            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, OTHER));
+            taxpayerManager
+                .getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, ENTERTAINMENT.ordinal()),
+            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, BASIC.ordinal()),
+            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, TRAVEL.ordinal()),
+            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, HEALTH.ordinal()),
+            taxpayerManager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, OTHER.ordinal())
+        );
       }
     });
     btnViewReport.setBounds(214, 0, 109, 23);

@@ -21,7 +21,7 @@ public class XMLFileReader extends FileReader {
   }
 
   protected String getValueOfField(String fieldsLine) throws WrongFileFormatException {
-    return getValueOfField(fieldsLine, (line) -> {
+    return getValueOfField(fieldsLine, line -> {
       String[] valueWithTail = line.split(SPACE, 2);
       String[] valueReversed = new StringBuilder(valueWithTail[1]).reverse().toString().trim()
           .split(SPACE, 2);

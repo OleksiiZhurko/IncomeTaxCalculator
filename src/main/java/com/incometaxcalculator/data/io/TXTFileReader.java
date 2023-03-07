@@ -23,7 +23,7 @@ public class TXTFileReader extends FileReader {
   }
 
   protected String getValueOfField(String fieldsLine) throws WrongFileFormatException {
-    return getValueOfField(fieldsLine, (line) -> {
+    return getValueOfField(fieldsLine, line -> {
       String[] values = fieldsLine.split(SPACE, 2);
       return values[1].trim();
     });
