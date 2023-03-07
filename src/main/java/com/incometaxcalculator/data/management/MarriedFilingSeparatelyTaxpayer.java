@@ -2,8 +2,8 @@ package com.incometaxcalculator.data.management;
 
 public class MarriedFilingSeparatelyTaxpayer extends Taxpayer {
 
-  public MarriedFilingSeparatelyTaxpayer(String fullname, int taxRegistrationNumber, float income) {
-    super(fullname, taxRegistrationNumber, income);
+  public MarriedFilingSeparatelyTaxpayer(String fullName, int taxRegistrationNumber, float income) {
+    super(fullName, taxRegistrationNumber, income);
 
     incomeComparisonArray[0] = 18040;
     incomeComparisonArray[1] = 71680;

@@ -30,7 +30,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class TaxpayerData extends JFrame {
 
@@ -39,7 +38,7 @@ public class TaxpayerData extends JFrame {
   private static final short TRAVEL = 2;
   private static final short HEALTH = 3;
   private static final short OTHER = 4;
-  private JPanel contentPane;
+  private final JPanel contentPane;
 
   public TaxpayerData(int taxRegistrationNumber, TaxpayerManager taxpayerManager) {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -49,9 +48,9 @@ public class TaxpayerData extends JFrame {
     setContentPane(contentPane);
     contentPane.setLayout(null);
 
-    DefaultListModel<Integer> receiptsModel = new DefaultListModel<Integer>();
+    DefaultListModel<Integer> receiptsModel = new DefaultListModel<>();
 
-    JList<Integer> receiptsList = new JList<Integer>(receiptsModel);
+    JList<Integer> receiptsList = new JList<>(receiptsModel);
     receiptsList.setBackground(new Color(153, 204, 204));
     receiptsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     receiptsList.setSelectedIndex(0);
@@ -63,10 +62,8 @@ public class TaxpayerData extends JFrame {
     contentPane.add(receiptsListScrollPane);
 
     HashMap<Integer, Receipt> receipts = taxpayerManager.getReceiptHashMap(taxRegistrationNumber);
-    Iterator<HashMap.Entry<Integer, Receipt>> iterator = receipts.entrySet().iterator();
 
-    while (iterator.hasNext()) {
-      HashMap.Entry<Integer, Receipt> entry = iterator.next();
+    for (var entry : receipts.entrySet()) {
       Receipt receipt = entry.getValue();
       receiptsModel.addElement(receipt.getId());
     }

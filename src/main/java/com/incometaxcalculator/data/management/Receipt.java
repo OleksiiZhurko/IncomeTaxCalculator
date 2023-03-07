@@ -20,7 +20,7 @@ public class Receipt {
   }
 
   private Date createDate(String issueDate) throws WrongReceiptDateException {
-    String token[] = issueDate.split("/");
+    String[] token = issueDate.split("/");
     if (token.length != 3) {
       throw new WrongReceiptDateException();
     }

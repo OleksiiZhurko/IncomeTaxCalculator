@@ -11,11 +11,10 @@ public class TXTFileReader extends FileReader {
       throws NumberFormatException, IOException {
     String line;
     while (!isEmpty(line = inputStream.readLine())) {
-      String values[] = line.split(" ", 3);
+      String[] values = line.split(" ", 3);
       if (values[0].equals("Receipt")) {
         if (values[1].equals("ID:")) {
-          int receiptId = Integer.parseInt(values[2].trim());
-          return receiptId;
+          return Integer.parseInt(values[2].trim());
         }
       }
     }
@@ -27,7 +26,7 @@ public class TXTFileReader extends FileReader {
       throw new WrongFileFormatException();
     }
     try {
-      String values[] = fieldsLine.split(" ", 2);
+      String[] values = fieldsLine.split(" ", 2);
       values[1] = values[1].trim();
       return values[1];
     } catch (NullPointerException e) {

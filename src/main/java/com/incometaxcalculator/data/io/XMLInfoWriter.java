@@ -5,7 +5,6 @@ import com.incometaxcalculator.data.management.Receipt;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class XMLInfoWriter extends FileWriter {
 
@@ -27,9 +26,7 @@ public class XMLInfoWriter extends FileWriter {
   private void generateTaxpayerReceipts(int taxRegistrationNumber, PrintWriter outputStream) {
 
     HashMap<Integer, Receipt> receiptsHashMap = getReceiptHashMap(taxRegistrationNumber);
-    Iterator<HashMap.Entry<Integer, Receipt>> iterator = receiptsHashMap.entrySet().iterator();
-    while (iterator.hasNext()) {
-      HashMap.Entry<Integer, Receipt> entry = iterator.next();
+    for (var entry : receiptsHashMap.entrySet()) {
       Receipt receipt = entry.getValue();
       outputStream.println("<ReceiptID> " + getReceiptId(receipt) + " </ReceiptID>");
       outputStream.println("<Date> " + getReceiptIssueDate(receipt) + " </Date>");

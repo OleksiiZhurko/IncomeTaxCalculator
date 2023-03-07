@@ -9,9 +9,9 @@ public abstract class Taxpayer {
   protected final String fullname;
   protected final int taxRegistrationNumber;
   protected final float income;
-  private float amountPerReceiptsKind[] = new float[5];
+  private final float[] amountPerReceiptsKind = new float[5];
   private int totalReceiptsGathered = 0;
-  private HashMap<Integer, Receipt> receiptHashMap = new HashMap<Integer, Receipt>(0);
+  private final HashMap<Integer, Receipt> receiptHashMap = new HashMap<>(0);
   /*private static final short ENTERTAINMENT = 0;
   private static final short BASIC = 1;
   private static final short TRAVEL = 2;

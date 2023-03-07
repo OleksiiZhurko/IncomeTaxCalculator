@@ -10,13 +10,12 @@ import com.incometaxcalculator.exceptions.WrongTaxpayerStatusException;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class TaxpayerManager {
 ////////////////////////////////////////////////////////EKANA THN PRIVATE PROTECTED NA TO KSANADO
-  protected static HashMap<Integer, Taxpayer> taxpayerHashMap = new HashMap<Integer, Taxpayer>(0);//To ekana PROTECTED gia to factory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  protected static HashMap<Integer, Taxpayer> taxpayerHashMap = new HashMap<>(0);//To ekana PROTECTED gia to factory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ////////////////////////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  private static HashMap<Integer, Integer> receiptOwnerTRN = new HashMap<Integer, Integer>(0);
+  private static final HashMap<Integer, Integer> receiptOwnerTRN = new HashMap<>(0);
 
   public void createTaxpayer(String fullname, int taxRegistrationNumber, String status,
       float income) throws WrongTaxpayerStatusException {
@@ -57,9 +56,7 @@ public class TaxpayerManager {
     Taxpayer taxpayer = taxpayerHashMap.get(taxRegistrationNumber);
     taxpayerHashMap.remove(taxRegistrationNumber);
     HashMap<Integer, Receipt> receiptsHashMap = taxpayer.getReceiptHashMap();
-    Iterator<HashMap.Entry<Integer, Receipt>> iterator = receiptsHashMap.entrySet().iterator();
-    while (iterator.hasNext()) {
-      HashMap.Entry<Integer, Receipt> entry = iterator.next();
+    for (var entry : receiptsHashMap.entrySet()) {
       Receipt receipt = entry.getValue();
       receiptOwnerTRN.remove(receipt.getId());
     }
@@ -120,24 +117,15 @@ public class TaxpayerManager {
   }
 
   public boolean containsTaxpayer(int taxRegistrationNumber) {
-    if (taxpayerHashMap.containsKey(taxRegistrationNumber)) {
-      return true;
-    }
-    return false;
+    return taxpayerHashMap.containsKey(taxRegistrationNumber);
   }
 
   public boolean containsTaxpayer() {
-    if (taxpayerHashMap.isEmpty()) {
-      return false;
-    }
-    return true;
+    return !taxpayerHashMap.isEmpty();
   }
 
   public boolean containsReceipt(int id) {
-    if (receiptOwnerTRN.containsKey(id)) {
-      return true;
-    }
-    return false;
+    return receiptOwnerTRN.containsKey(id);
 
   }
 

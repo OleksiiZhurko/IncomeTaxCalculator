@@ -16,15 +16,6 @@ public abstract class FileReader {
 
   protected abstract String getValueOfField(String fieldsLine) throws WrongFileFormatException;
   
-  /**
-   * 
-   * @throws NumberFormatException 
-   * @throws IOException xcvcxcvcxvxc
-   * @throws WrongTaxpayerStatusException
-   * @throws WrongFileFormatException
-   * @throws WrongReceiptKindException
-   * @throws WrongReceiptDateException
-   */
   public void readFile(String fileName)
       throws NumberFormatException, IOException, WrongTaxpayerStatusException,
       WrongFileFormatException, WrongReceiptKindException, WrongReceiptDateException {
@@ -60,11 +51,11 @@ public abstract class FileReader {
     return true;
   }
 
-  protected void createTaxpayer(String fullname, int taxRegistrationNumber, float income,
+  protected void createTaxpayer(String fullName, int taxRegistrationNumber, float income,
       String status) throws WrongTaxpayerStatusException {
 
     TaxpayerManager manager = new TaxpayerManager();
-    manager.createTaxpayer(fullname, taxRegistrationNumber, status, income);
+    manager.createTaxpayer(fullName, taxRegistrationNumber, status, income);
   }
 
   protected void createReceipt(int receiptId, String issueDate, float amount, String kind,
@@ -77,11 +68,7 @@ public abstract class FileReader {
   }
 
   protected boolean isEmpty(String line) {
-    if (line == null) {
-      return true;
-    } else {
-      return false;
-    }
+    return line == null;
   }
 
 }

@@ -2,7 +2,6 @@ package com.incometaxcalculator.data.management;
 
 public class SingleTaxpayer extends Taxpayer {
 
-
   public SingleTaxpayer(String fullname, int taxRegistrationNumber, float income) {
     super(fullname, taxRegistrationNumber, income);
 

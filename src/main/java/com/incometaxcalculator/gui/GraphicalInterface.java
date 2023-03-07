@@ -34,10 +34,10 @@ import java.io.IOException;
 
 public class GraphicalInterface extends JFrame {
 
-  private JPanel contentPane;
-  private TaxpayerManager taxpayerManager = new TaxpayerManager();
-  private String taxpayersTRN = new String();
-  private JTextField txtTaxRegistrationNumber;
+  private final JPanel contentPane;
+  private final TaxpayerManager taxpayerManager = new TaxpayerManager();
+  private final String taxpayersTRN = "";
+  private final JTextField txtTaxRegistrationNumber;
 
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -102,9 +102,9 @@ public class GraphicalInterface extends JFrame {
     boxPanel.add(txtBox, BorderLayout.WEST);
     boxPanel.add(xmlBox, BorderLayout.EAST);
 
-    DefaultListModel<String> taxRegisterNumberModel = new DefaultListModel<String>();
+    DefaultListModel<String> taxRegisterNumberModel = new DefaultListModel<>();
 
-    JList<String> taxRegisterNumberList = new JList<String>(taxRegisterNumberModel);
+    JList<String> taxRegisterNumberList = new JList<>(taxRegisterNumberModel);
     taxRegisterNumberList.setBackground(new Color(153, 204, 204));
     taxRegisterNumberList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     taxRegisterNumberList.setSelectedIndex(0);
@@ -216,9 +216,7 @@ public class GraphicalInterface extends JFrame {
               taxpayerManager.removeTaxpayer(taxRegistrationNumber);
               taxRegisterNumberModel.removeElement(trn);
             }
-          } catch (NumberFormatException e) {
-
-          }
+          } catch (NumberFormatException ignored) {}
         } else {
           JOptionPane.showMessageDialog(null,
               "There isn't any taxpayer loaded. Please load one first.");

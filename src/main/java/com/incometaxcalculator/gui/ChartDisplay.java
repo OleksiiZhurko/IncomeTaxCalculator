@@ -49,7 +49,7 @@ class ChartDisplay {
     return pieChartDataset;
   }
 
-  static JFrame createBarChart(double basicTax, double taxVariation, double totalTax) {
+  static void createBarChart(double basicTax, double taxVariation, double totalTax) {
     JFrame barChartFrame = new JFrame("Bar Chart");
     barChartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     barChartFrame.setLayout(new BorderLayout(0, 5));
@@ -57,7 +57,6 @@ class ChartDisplay {
     barChartFrame.pack();
     RefineryUtilities.centerFrameOnScreen(barChartFrame);
     barChartFrame.setVisible(true);
-    return barChartFrame;
   }
 
   private static ChartPanel createBarChartPanel(double basicTax, double taxVariation,

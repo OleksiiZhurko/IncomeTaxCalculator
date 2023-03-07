@@ -11,10 +11,9 @@ public class XMLFileReader extends FileReader {
       throws NumberFormatException, IOException {
     String line;
     while (!isEmpty(line = inputStream.readLine())) {
-      String values[] = line.split(" ", 3);
+      String[] values = line.split(" ", 3);
       if (values[0].equals("<ReceiptID>")) {
-        int receiptId = Integer.parseInt(values[1].trim());
-        return receiptId;
+        return Integer.parseInt(values[1].trim());
       }
     }
     return -1;
@@ -25,8 +24,8 @@ public class XMLFileReader extends FileReader {
       throw new WrongFileFormatException();
     }
     try {
-      String valueWithTail[] = fieldsLine.split(" ", 2);
-      String valueReversed[] = new StringBuilder(valueWithTail[1]).reverse().toString().trim()
+      String[] valueWithTail = fieldsLine.split(" ", 2);
+      String[] valueReversed = new StringBuilder(valueWithTail[1]).reverse().toString().trim()
           .split(" ", 2);
       return new StringBuilder(valueReversed[1]).reverse().toString();
     } catch (NullPointerException e) {
