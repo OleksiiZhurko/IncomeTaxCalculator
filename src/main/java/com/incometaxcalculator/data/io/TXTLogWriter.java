@@ -3,13 +3,13 @@ package com.incometaxcalculator.data.io;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class TXTLogWriter extends FileWriter {
+import static com.incometaxcalculator.data.io.LogOptions.BASIC;
+import static com.incometaxcalculator.data.io.LogOptions.ENTERTAINMENT;
+import static com.incometaxcalculator.data.io.LogOptions.HEALTH;
+import static com.incometaxcalculator.data.io.LogOptions.OTHER;
+import static com.incometaxcalculator.data.io.LogOptions.TRAVEL;
 
-  private static final short ENTERTAINMENT = 0;
-  private static final short BASIC = 1;
-  private static final short TRAVEL = 2;
-  private static final short HEALTH = 3;
-  private static final short OTHER = 4;
+public class TXTLogWriter extends FileWriter {
 
   public void generateFile(int taxRegistrationNumber) throws IOException {
     PrintWriter outputStream = new PrintWriter(
@@ -18,24 +18,25 @@ public class TXTLogWriter extends FileWriter {
     outputStream.println("AFM: " + taxRegistrationNumber);
     outputStream.println("Income: " + getTaxpayerIncome(taxRegistrationNumber));
     outputStream.println("Basic Tax: " + getTaxpayerBasicTax(taxRegistrationNumber));
-    if (getTaxpayerVariationTaxOnReceipts(taxRegistrationNumber) > 0) {
-      outputStream
-          .println("Tax Increase: " + getTaxpayerVariationTaxOnReceipts(taxRegistrationNumber));
+    double taxOnReceipts = getTaxpayerVariationTaxOnReceipts(taxRegistrationNumber);
+    if (taxOnReceipts > 0) {
+      outputStream.println("Tax Increase: " + taxOnReceipts);
     } else {
-      outputStream
-          .println("Tax Decrease: " + getTaxpayerVariationTaxOnReceipts(taxRegistrationNumber));
+      outputStream.println("Tax Decrease: " + taxOnReceipts);
     }
     outputStream.println("Total Tax: " + getTaxpayerTotalTax(taxRegistrationNumber));
     outputStream.println(
         "TotalReceiptsGathered: " + getTaxpayerTotalReceiptsGathered(taxRegistrationNumber));
-    outputStream.println(
-        "Entertainment: " + getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, ENTERTAINMENT));
-    outputStream.println("Basic: " + getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, BASIC));
-    outputStream
-        .println("Travel: " + getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, TRAVEL));
-    outputStream
-        .println("Health: " + getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, HEALTH));
-    outputStream.println("Other: " + getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, OTHER));
+    outputStream.println("Entertainment: " +
+        getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, ENTERTAINMENT.ordinal()));
+    outputStream.println("Basic: " +
+        getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, BASIC.ordinal()));
+    outputStream.println("Travel: " +
+        getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, TRAVEL.ordinal()));
+    outputStream.println("Health: " +
+        getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, HEALTH.ordinal()));
+    outputStream.println("Other: " +
+        getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, OTHER.ordinal()));
     outputStream.close();
   }
 

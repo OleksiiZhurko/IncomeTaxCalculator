@@ -11,41 +11,60 @@ import org.jfree.ui.RefineryUtilities;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
+import static com.incometaxcalculator.data.io.LogOptions.BASIC;
+import static com.incometaxcalculator.data.io.LogOptions.ENTERTAINMENT;
+import static com.incometaxcalculator.data.io.LogOptions.HEALTH;
+import static com.incometaxcalculator.data.io.LogOptions.OTHER;
+import static com.incometaxcalculator.data.io.LogOptions.TRAVEL;
+
 class ChartDisplay {
 
-  static JFrame createPieChart(double entertainment, double basic, double travel, double health,
-      double other) {
-
+  static void createPieChart(
+      double entertainment,
+      double basic,
+      double travel,
+      double health,
+      double other
+  ) {
     JFrame pieChartFrame = new JFrame("Analysis of receipts");
     pieChartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     pieChartFrame.setLayout(new BorderLayout(0, 5));
-    pieChartFrame.add(createPieChartPanel(entertainment, basic, travel, health, other),
-        BorderLayout.CENTER);
+    pieChartFrame.add(
+        createPieChartPanel(entertainment, basic, travel, health, other),
+        BorderLayout.CENTER
+    );
     pieChartFrame.pack();
     RefineryUtilities.centerFrameOnScreen(pieChartFrame);
     pieChartFrame.setVisible(true);
-    return pieChartFrame;
   }
 
   private static ChartPanel createPieChartPanel(double entertainment, double basic, double travel,
       double health, double other) {
     JFreeChart pieChart = ChartFactory.createPieChart(
         "Percentage of the total amount of each kind of receipt.",
-        createDefaultPieDataset(entertainment, basic, travel, health, other), true, true, false);
+        createDefaultPieDataset(entertainment, basic, travel, health, other),
+        true,
+        true,
+        false
+    );
     ChartPanel barChartPanel = new ChartPanel(pieChart);
     barChartPanel.setPreferredSize(new java.awt.Dimension(450, 550));
     return barChartPanel;
   }
 
-  private static DefaultPieDataset createDefaultPieDataset(double entertainment, double basic,
-      double travel, double health, double other) {
-
-    DefaultPieDataset pieChartDataset = new DefaultPieDataset();
-    pieChartDataset.setValue("Entertainment", entertainment);
-    pieChartDataset.setValue("Basic", basic);
-    pieChartDataset.setValue("Travel", travel);
-    pieChartDataset.setValue("Health", health);
-    pieChartDataset.setValue("Other", other);
+  private static DefaultPieDataset<String> createDefaultPieDataset(
+      double entertainment,
+      double basic,
+      double travel,
+      double health,
+      double other
+  ) {
+    var pieChartDataset = new DefaultPieDataset<String>();
+    pieChartDataset.setValue(ENTERTAINMENT.originalName(), entertainment);
+    pieChartDataset.setValue(BASIC.originalName(), basic);
+    pieChartDataset.setValue(TRAVEL.originalName(), travel);
+    pieChartDataset.setValue(HEALTH.originalName(), health);
+    pieChartDataset.setValue(OTHER.originalName(), other);
     return pieChartDataset;
   }
 
@@ -72,7 +91,7 @@ class ChartDisplay {
   private static DefaultCategoryDataset createDefaultCategoryDataset(double basicTax,
       double taxVariation, double totalTax) {
     DefaultCategoryDataset barChartDataset = new DefaultCategoryDataset();
-    barChartDataset.addValue(basicTax, "Tax", "Basic");
+    barChartDataset.addValue(basicTax, "Tax", BASIC.originalName());
     if (taxVariation > 0) {
       barChartDataset.addValue(taxVariation, "Tax", "Increase");
     } else {

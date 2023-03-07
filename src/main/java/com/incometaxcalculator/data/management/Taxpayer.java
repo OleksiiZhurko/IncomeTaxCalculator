@@ -4,23 +4,30 @@ import com.incometaxcalculator.exceptions.WrongReceiptKindException;
 
 import java.util.HashMap;
 
+import static com.incometaxcalculator.data.io.LogOptions.BASIC;
+import static com.incometaxcalculator.data.io.LogOptions.ENTERTAINMENT;
+import static com.incometaxcalculator.data.io.LogOptions.HEALTH;
+import static com.incometaxcalculator.data.io.LogOptions.OTHER;
+import static com.incometaxcalculator.data.io.LogOptions.TRAVEL;
+
 public abstract class Taxpayer {
 
-  protected final String fullname;
+  protected final String fullName;
   protected final int taxRegistrationNumber;
   protected final float income;
   private final float[] amountPerReceiptsKind = new float[5];
   private int totalReceiptsGathered = 0;
   private final HashMap<Integer, Receipt> receiptHashMap = new HashMap<>(0);
-  /*private static final short ENTERTAINMENT = 0;
-  private static final short BASIC = 1;
-  private static final short TRAVEL = 2;
-  private static final short HEALTH = 3;
-  private static final short OTHER = 4;*/
 
   //my stuff
   //Erothma 2
-  public final String[] receiptKindArray = new String[]{"Entertainment", "Basic", "Travel", "Health", "Other"};
+  public final String[] receiptKindArray = new String[]{
+      ENTERTAINMENT.originalName(),
+      BASIC.originalName(),
+      TRAVEL.originalName(),
+      HEALTH.originalName(),
+      OTHER.originalName()
+  };
   public final double[] basicTaxMultiplier = new double[]{0.08, 0.04, 0.15, 0.3};
   public final double[] variationCheck = new double[]{0.2, 0.4, 0.6};
 
@@ -28,13 +35,13 @@ public abstract class Taxpayer {
   protected double[] incomeComparisonArray = new double[4];
   protected double[] returnVarArray = new double[5];
 
-  protected Taxpayer(String fullname, int taxRegistrationNumber, float income) {
-    this.fullname = fullname;
+  protected Taxpayer(String fullName, int taxRegistrationNumber, float income) {
+    this.fullName = fullName;
     this.taxRegistrationNumber = taxRegistrationNumber;
     this.income = income;
   }
 
-  public double calculateBasicTax(){
+  public double calculateBasicTax() {
     if (income < incomeComparisonArray[0]) {
       return returnVarArray[0];
     } else if (income < incomeComparisonArray[1]) {
@@ -43,9 +50,9 @@ public abstract class Taxpayer {
       return returnVarArray[2];
     } else if (income < incomeComparisonArray[3]) {
       return returnVarArray[3];
-    } else {
-      return returnVarArray[4];
     }
+
+    return returnVarArray[4];
   }
 
   public void addReceipt(Receipt receipt) throws WrongReceiptKindException {
@@ -54,8 +61,7 @@ public abstract class Taxpayer {
         amountPerReceiptsKind[i] += receipt.getAmount();
         i = 5;
       }
-      if(i == 4)
-      {
+      if (i == 4) {
         throw new WrongReceiptKindException();
       }
     }
@@ -81,15 +87,14 @@ public abstract class Taxpayer {
     totalReceiptsGathered++;
   }*/
 
-  public void removeReceipt(int receiptId) throws WrongReceiptKindException{
+  public void removeReceipt(int receiptId) throws WrongReceiptKindException {
     Receipt receipt = receiptHashMap.get(receiptId);
     for (int i = 0; i < 5; i++) {
       if (receipt.getKind().equals(receiptKindArray[i])) {
         amountPerReceiptsKind[i] -= receipt.getAmount();
         i = 5;
       }
-      if(i == 4)
-      {
+      if (i == 4) {
         throw new WrongReceiptKindException();
       }
     }
@@ -116,8 +121,8 @@ public abstract class Taxpayer {
     receiptHashMap.remove(receiptId);
   }*/
 
-  public String getFullname() {
-    return fullname;
+  public String getFullName() {
+    return fullName;
   }
 
   public int getTaxRegistrationNumber() {
@@ -148,8 +153,8 @@ public abstract class Taxpayer {
 
   public double getVariationTaxOnReceipts() {
     float totalAmountOfReceipts = getTotalAmountOfReceipts();
-    for(int i = 0;i < 3;i++){
-      if(totalAmountOfReceipts < income * variationCheck[i]){
+    for (int i = 0; i < 3; i++) {
+      if (totalAmountOfReceipts < income * variationCheck[i]) {
         return (calculateBasicTax() * basicTaxMultiplier[i]);
       }
     }
@@ -168,7 +173,7 @@ public abstract class Taxpayer {
     return totalReceiptsGathered;
   }
 
-  public float getAmountOfReceiptKind(short kind) {
+  public float getAmountOfReceiptKind(int kind) {
     return amountPerReceiptsKind[kind];
   }
 

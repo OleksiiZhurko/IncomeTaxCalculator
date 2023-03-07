@@ -40,14 +40,12 @@ public class GraphicalInterface extends JFrame {
   private final JTextField txtTaxRegistrationNumber;
 
   public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          GraphicalInterface frame = new GraphicalInterface();
-          frame.setVisible(true);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+    EventQueue.invokeLater(() -> {
+      try {
+        GraphicalInterface frame = new GraphicalInterface();
+        frame.setVisible(true);
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     });
   }
@@ -182,8 +180,7 @@ public class GraphicalInterface extends JFrame {
             try {
               taxRegistrationNumber = Integer.parseInt(trn);
               if (taxpayerManager.containsTaxpayer(taxRegistrationNumber)) {
-                TaxpayerData taxpayerData = new TaxpayerData(taxRegistrationNumber,
-                    taxpayerManager);
+                TaxpayerData taxpayerData = new TaxpayerData(taxRegistrationNumber, taxpayerManager);
                 taxpayerData.setVisible(true);
               } else {
                 JOptionPane.showMessageDialog(null, "This tax registration number isn't loaded.");

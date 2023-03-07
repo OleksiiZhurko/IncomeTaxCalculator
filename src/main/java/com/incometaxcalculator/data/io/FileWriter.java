@@ -12,53 +12,43 @@ public abstract class FileWriter {
   public abstract void generateFile(int taxRegistrationNumber) throws IOException;
 
   public Taxpayer getTaxpayer(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayer(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayer(taxRegistrationNumber);
   }
 
   public String getTaxpayerName(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerName(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayerName(taxRegistrationNumber);
   }
 
   public String getTaxpayerIncome(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerIncome(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayerIncome(taxRegistrationNumber);
   }
 
   public String getTaxpayerStatus(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerStatus(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayerStatus(taxRegistrationNumber);
   }
 
   public double getTaxpayerVariationTaxOnReceipts(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerVariationTaxOnReceipts(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayerVariationTaxOnReceipts(taxRegistrationNumber);
   }
 
   public int getTaxpayerTotalReceiptsGathered(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerTotalReceiptsGathered(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayerTotalReceiptsGathered(taxRegistrationNumber);
   }
 
-  public float getTaxpayerAmountOfReceiptKind(int taxRegistrationNumber, short kind) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, kind);
+  public float getTaxpayerAmountOfReceiptKind(int taxRegistrationNumber, int kind) {
+    return new TaxpayerManager().getTaxpayerAmountOfReceiptKind(taxRegistrationNumber, kind);
   }
 
   public double getTaxpayerTotalTax(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerTotalTax(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayerTotalTax(taxRegistrationNumber);
   }
 
   public double getTaxpayerBasicTax(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getTaxpayerBasicTax(taxRegistrationNumber);
+    return new TaxpayerManager().getTaxpayerBasicTax(taxRegistrationNumber);
   }
 
   public HashMap<Integer, Receipt> getReceiptHashMap(int taxRegistrationNumber) {
-    TaxpayerManager manager = new TaxpayerManager();
-    return manager.getReceiptHashMap(taxRegistrationNumber);
+    return new TaxpayerManager().getReceiptHashMap(taxRegistrationNumber);
   }
 
   public int getReceiptId(Receipt receipt) {

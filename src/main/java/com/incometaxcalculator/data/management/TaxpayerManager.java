@@ -1,6 +1,7 @@
 package com.incometaxcalculator.data.management;
 
-import com.incometaxcalculator.data.io.*;
+import com.incometaxcalculator.data.io.FileReader;
+import com.incometaxcalculator.data.io.FileWriter;
 import com.incometaxcalculator.exceptions.ReceiptAlreadyExistsException;
 import com.incometaxcalculator.exceptions.WrongFileEndingException;
 import com.incometaxcalculator.exceptions.WrongFileFormatException;
@@ -17,25 +18,25 @@ public class TaxpayerManager {
 ////////////////////////////////////////////////////////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   private static final HashMap<Integer, Integer> receiptOwnerTRN = new HashMap<>(0);
 
-  public void createTaxpayer(String fullname, int taxRegistrationNumber, String status,
+  public void createTaxpayer(String fullName, int taxRegistrationNumber, String status,
       float income) throws WrongTaxpayerStatusException {
 
     TaxpayerFactory taxpayerFactory = new TaxpayerFactory();
-    taxpayerFactory.createTaxpayerFactory(fullname,taxRegistrationNumber,status,income);
+    taxpayerFactory.createTaxpayerFactory(fullName,taxRegistrationNumber,status,income);
 
 
     /*if (status.equals("Married Filing Jointly")) {
       taxpayerHashMap.put(taxRegistrationNumber,
-          new MarriedFilingJointlyTaxpayer(fullname, taxRegistrationNumber, income));
+          new MarriedFilingJointlyTaxpayer(fullName, taxRegistrationNumber, income));
     } else if (status.equals("Married Filing Separately")) {
       taxpayerHashMap.put(taxRegistrationNumber,
-          new MarriedFilingSeparatelyTaxpayer(fullname, taxRegistrationNumber, income));
+          new MarriedFilingSeparatelyTaxpayer(fullName, taxRegistrationNumber, income));
     } else if (status.equals("Single")) {
       taxpayerHashMap.put(taxRegistrationNumber,
-          new SingleTaxpayer(fullname, taxRegistrationNumber, income));
+          new SingleTaxpayer(fullName, taxRegistrationNumber, income));
     } else if (status.equals("Head of Household")) {
       taxpayerHashMap.put(taxRegistrationNumber,
-          new HeadOfHouseholdTaxpayer(fullname, taxRegistrationNumber, income));
+          new HeadOfHouseholdTaxpayer(fullName, taxRegistrationNumber, income));
     } else {
       throw new WrongTaxpayerStatusException();
     }*/
@@ -126,7 +127,6 @@ public class TaxpayerManager {
 
   public boolean containsReceipt(int id) {
     return receiptOwnerTRN.containsKey(id);
-
   }
 
   public Taxpayer getTaxpayer(int taxRegistrationNumber) {
@@ -154,7 +154,7 @@ public class TaxpayerManager {
   }
 
   public String getTaxpayerName(int taxRegistrationNumber) {
-    return taxpayerHashMap.get(taxRegistrationNumber).getFullname();
+    return taxpayerHashMap.get(taxRegistrationNumber).getFullName();
   }
 
   public String getTaxpayerStatus(int taxRegistrationNumber) {
@@ -182,7 +182,7 @@ public class TaxpayerManager {
     return taxpayerHashMap.get(taxRegistrationNumber).getTotalReceiptsGathered();
   }
 
-  public float getTaxpayerAmountOfReceiptKind(int taxRegistrationNumber, short kind) {
+  public float getTaxpayerAmountOfReceiptKind(int taxRegistrationNumber, int kind) {
     return taxpayerHashMap.get(taxRegistrationNumber).getAmountOfReceiptKind(kind);
   }
 

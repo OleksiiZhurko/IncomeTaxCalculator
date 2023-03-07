@@ -32,7 +32,7 @@ class TaxpayerTest {
             HashMap<Integer, Receipt> receiptHashAfterAdd;
             receiptHashAfterAdd = singletaxpayer1.getReceiptHashMap();
 
-            assertEquals(startingReceipts,singletaxpayer1.getAmountOfReceiptKind((short) 1));
+            assertEquals(startingReceipts,singletaxpayer1.getAmountOfReceiptKind(1));
             assertEquals(startingTotalReceiptsGathered,singletaxpayer1.getTotalReceiptsGathered());
             assertEquals (receiptHashBeforeAdd.get(1),receiptHashAfterAdd.get(1));
         } catch (WrongReceiptDateException e) {
@@ -53,7 +53,7 @@ class TaxpayerTest {
 
                 singletaxpayer1.addReceipt(receipt1);
 
-                startingReceipts += singletaxpayer1.getAmountOfReceiptKind((short) 1);
+                startingReceipts += singletaxpayer1.getAmountOfReceiptKind(1);
                 startingTotalReceiptsGathered += singletaxpayer1.getTotalReceiptsGathered();
                 HashMap<Integer, Receipt> receiptHashAfterAdd;
                 receiptHashAfterAdd = singletaxpayer1.getReceiptHashMap();
@@ -67,7 +67,7 @@ class TaxpayerTest {
                 startingTotalReceiptsGathered -= 1;
                 receiptHashAfterAdd.remove(1);
 
-                assertEquals(startingReceipts,singletaxpayer1.getAmountOfReceiptKind((short) 1));
+                assertEquals(startingReceipts,singletaxpayer1.getAmountOfReceiptKind(1));
                 assertEquals(startingTotalReceiptsGathered,singletaxpayer1.getTotalReceiptsGathered());
                 assertEquals(receiptHashAfterAdd.get(1),receiptHashAfterRemove.get(1));
             } catch (WrongReceiptDateException e) {

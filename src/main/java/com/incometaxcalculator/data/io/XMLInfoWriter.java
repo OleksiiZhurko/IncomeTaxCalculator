@@ -20,6 +20,7 @@ public class XMLInfoWriter extends FileWriter {
     outputStream.println("<Receipts>");
     outputStream.println();
     generateTaxpayerReceipts(taxRegistrationNumber, outputStream);
+    outputStream.println("</Receipts>");
     outputStream.close();
   }
 

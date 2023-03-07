@@ -1,7 +1,18 @@
 package com.incometaxcalculator.data.management;
 
-import com.incometaxcalculator.data.io.*;
-import com.incometaxcalculator.exceptions.*;
+import com.incometaxcalculator.data.io.FileReader;
+import com.incometaxcalculator.data.io.FileWriter;
+import com.incometaxcalculator.data.io.TXTFileReader;
+import com.incometaxcalculator.data.io.TXTInfoWriter;
+import com.incometaxcalculator.data.io.TXTLogWriter;
+import com.incometaxcalculator.data.io.XMLFileReader;
+import com.incometaxcalculator.data.io.XMLInfoWriter;
+import com.incometaxcalculator.data.io.XMLLogWriter;
+import com.incometaxcalculator.data.io.format.TxtFormatter;
+import com.incometaxcalculator.data.io.format.XmlFormatter;
+import com.incometaxcalculator.exceptions.WrongFileEndingException;
+import com.incometaxcalculator.exceptions.WrongFileFormatException;
+import com.incometaxcalculator.exceptions.WrongTaxpayerStatusException;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +21,12 @@ import static com.incometaxcalculator.data.management.TaxpayerManager.taxpayerHa
 ///////////////////////////////////////////////////////////////////////////
 
 public class TaxpayerFactory {
-    public void createTaxpayerFactory(String fullName, int taxRegistrationNumber, String status,
-                                float income) throws WrongTaxpayerStatusException {
+    public void createTaxpayerFactory(
+        String fullName,
+        int taxRegistrationNumber,
+        String status,
+        float income
+    ) throws WrongTaxpayerStatusException {
         switch (status) {
             case "Married Filing Jointly":
                 taxpayerHashMap.put(taxRegistrationNumber,
@@ -39,36 +54,28 @@ public class TaxpayerFactory {
     public void updateFilesFactory(int taxRegistrationNumber) throws IOException {
         if (new File(taxRegistrationNumber + "_INFO.xml").exists()) {
             new XMLInfoWriter().generateFile(taxRegistrationNumber);
+
+            if (new File(taxRegistrationNumber + "_INFO.txt").exists()) {
+                new TXTInfoWriter().generateFile(taxRegistrationNumber);
+            }
         } else {
-            new TXTInfoWriter().generateFile(taxRegistrationNumber);
-            return;
-        }
-        if (new File(taxRegistrationNumber + "_INFO.txt").exists()) {
             new TXTInfoWriter().generateFile(taxRegistrationNumber);
         }
     }
-    public FileWriter saveLogFileFactory(String fileFormat)
-            throws WrongFileFormatException {
-        if (fileFormat.equals("txt")) {
+    public FileWriter saveLogFileFactory(String fileFormat) throws WrongFileFormatException {
+        if (fileFormat.equals(TxtFormatter.FILE_EXTENSION)) {
             return new TXTLogWriter();
-        }
-        else if (fileFormat.equals("xml")) {
+        } else if (fileFormat.equals(XmlFormatter.FILE_EXTENSION)) {
             return new XMLLogWriter();
         }
-        else {
-            throw new WrongFileFormatException();
-        }
+        throw new WrongFileFormatException();
     }
-    public FileReader loadTaxpayerFactory(String fileName)
-            throws NumberFormatException, WrongFileEndingException {
-
-        String[] ending = fileName.split("\\.");
-        if (ending[1].equals("txt")) {
-             return new TXTFileReader();
-        } else if (ending[1].equals("xml")) {
+    public FileReader loadTaxpayerFactory(String fileName) throws WrongFileEndingException {
+        if (fileName.endsWith(TxtFormatter.FILE_EXTENSION)) {
+            return new TXTFileReader();
+        } else if (fileName.endsWith(XmlFormatter.FILE_EXTENSION)) {
             return new XMLFileReader();
-        } else {
-            throw new WrongFileEndingException();
         }
+        throw new WrongFileEndingException();
     }
 }
