@@ -5,5 +5,5 @@ public interface FileFormatter {
 
   public static String FILE_EXTENSION = "";
 
-  String formatLine(String keyWord, String line);
+  String formatLine(String keyword, String line);
 }

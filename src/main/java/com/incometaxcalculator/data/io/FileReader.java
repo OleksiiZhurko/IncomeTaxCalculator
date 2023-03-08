@@ -15,6 +15,7 @@ public abstract class FileReader {
 
   public static int NOT_FOUND_CODE = -1;
   public static String SPACE = " ";
+  public static String EMPTY = "";
 
   protected abstract int checkForReceipt(BufferedReader inputStream)
       throws NumberFormatException, IOException;

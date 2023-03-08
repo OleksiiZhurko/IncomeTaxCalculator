@@ -22,7 +22,7 @@ public class TaxpayerManager {
       float income) throws WrongTaxpayerStatusException {
 
     TaxpayerFactory taxpayerFactory = new TaxpayerFactory();
-    taxpayerFactory.createTaxpayerFactory(fullName,taxRegistrationNumber,status,income);
+    taxpayerFactory.createTaxpayerFactory(fullName, taxRegistrationNumber, status, income);
 
 
     /*if (status.equals("Married Filing Jointly")) {
@@ -101,7 +101,7 @@ public class TaxpayerManager {
       throws IOException, WrongFileFormatException {
 
     TaxpayerFactory taxpayerFactory = new TaxpayerFactory();
-    FileWriter writer =  taxpayerFactory.saveLogFileFactory(fileFormat);
+    FileWriter writer = taxpayerFactory.saveLogFileFactory(fileFormat);
     writer.generateFile(taxRegistrationNumber);
 
     /*if (fileFormat.equals("txt")) {
@@ -138,7 +138,7 @@ public class TaxpayerManager {
       WrongTaxpayerStatusException, WrongReceiptKindException, WrongReceiptDateException {
 
     TaxpayerFactory taxpayerFactory = new TaxpayerFactory();
-    FileReader reader =  taxpayerFactory.loadTaxpayerFactory(fileName);
+    FileReader reader = taxpayerFactory.loadTaxpayerFactory(fileName);
     reader.readFile(fileName);
 
     /*String ending[] = fileName.split("\\.");
@@ -165,9 +165,8 @@ public class TaxpayerManager {
       return "Married Filing Separately";
     } else if (taxpayerHashMap.get(taxRegistrationNumber) instanceof SingleTaxpayer) {
       return "Single";
-    } else {
-      return "Head of Household";
     }
+    return "Head of Household";
   }
 
   public String getTaxpayerIncome(int taxRegistrationNumber) {
