@@ -23,9 +23,9 @@ class WriterTest {
 
   private static Path workingDir;
   private static String taxRegistrationNumberFile;
-  private static HashMap<Integer, Taxpayer> taxpayerHashMap = new HashMap<Integer, Taxpayer>(0);
-  private static TaxpayerManager taxpayerManager = new TaxpayerManager();
-  private static HashMap<Integer, Integer> receiptOwnerTRN = new HashMap<Integer, Integer>(0);
+  private static final HashMap<Integer, Taxpayer> taxpayerHashMap = new HashMap<>(0);
+  private static final TaxpayerManager taxpayerManager = new TaxpayerManager();
+  private static final HashMap<Integer, Integer> receiptOwnerTRN = new HashMap<>(0);
   
   @BeforeAll
   static void setUpBeforeClass() throws Exception {
@@ -33,12 +33,12 @@ class WriterTest {
   }
   
   @Test
-  void existsTaxpayerManager() throws IOException {
+  void existsTaxpayerManager() {
     assertNotNull(taxpayerManager);
   }
   
   @Test
-  void existsTaxpayerHashMap() throws IOException {
+  void existsTaxpayerHashMap() {
     assertNotNull(taxpayerHashMap);
   }
   
@@ -47,7 +47,7 @@ class WriterTest {
     System.out.println(taxpayerManager.containsTaxpayer());
     taxRegistrationNumberFile = "123456789_INFO.txt";
     taxpayerManager.loadTaxpayer(taxRegistrationNumberFile);
-    assertEquals(true,taxpayerManager.containsTaxpayer());
+    assertTrue(taxpayerManager.containsTaxpayer());
     assertEquals(5,taxpayerManager.getTaxpayerTotalReceiptsGathered(123456789));
   }
   
@@ -56,7 +56,7 @@ class WriterTest {
     System.out.println(taxpayerManager.containsTaxpayer());
     taxRegistrationNumberFile = "130456094_INFO.xml";
     taxpayerManager.loadTaxpayer(taxRegistrationNumberFile);
-    assertEquals(true,taxpayerManager.containsTaxpayer());
+    assertTrue(taxpayerManager.containsTaxpayer());
     assertEquals(2,taxpayerManager.getTaxpayerTotalReceiptsGathered(130456094));
   }
   
@@ -132,7 +132,7 @@ class WriterTest {
         
         Path file = workingDir.resolve("4435_INFO.txt");
         long count = Files.lines(file).count();
-        assertEquals(true,taxpayerManager.containsTaxpayer(4435));
+      assertTrue(taxpayerManager.containsTaxpayer(4435));
         assertEquals(7,taxpayerManager.getTaxpayerTotalReceiptsGathered(4435));
         assertEquals(count,75);
     } catch (WrongReceiptDateException e) {
